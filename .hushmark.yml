@@ -1,0 +1,2 @@
+# Read from the default branch only: a pull request cannot change it.
+mode: block

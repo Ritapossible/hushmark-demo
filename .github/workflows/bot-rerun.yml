@@ -1,0 +1,23 @@
+# Posts "/hushmark" on a pull request as github-actions[bot], to show that Hushmark refuses
+# re-runs from anyone without admin or maintain permission, bots included (not_maintainer).
+name: bot asks for a re-run
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number
+        required: true
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "/hushmark"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ inputs.pr }}
